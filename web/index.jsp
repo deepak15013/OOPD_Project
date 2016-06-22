@@ -3,7 +3,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Login, Register form</title>
+  <title>ConnectBook</title>
 
 
   <link rel="stylesheet" href="css/normalize.css">
@@ -14,6 +14,12 @@
 </head>
 
 <body>
+
+<%
+    String errorMessage = (String) request.getAttribute("error_message");
+%>
+
+<p><% out.println(errorMessage); %></p>
 
 <div class="login-box">
   <div class="lb-header">
@@ -44,21 +50,24 @@
       <a href="#" class="forgot-password">Forgot password?</a>
     </div>
   </form>
-  <form class="email-signup">
+
+  <form class="email-signup" method="post" action="signupservlet">
     <div class="u-form-group">
-      <input type="email" placeholder="Email"/>
+      <input type="email" placeholder="Email" id="email" name="email"/>
     </div>
     <div class="u-form-group">
-      <input type="password" placeholder="Password"/>
+      <input type="password" placeholder="Password" id="password" name="password"/>
     </div>
     <div class="u-form-group">
-      <input type="password" placeholder="Confirm Password"/>
+      <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password"/>
     </div>
     <div class="u-form-group">
-      <button>Sign Up</button>
+      <button type="submit">Sign Up</button>
     </div>
   </form>
+
 </div>
+
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="js/index.js"></script>

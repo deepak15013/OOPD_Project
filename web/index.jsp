@@ -36,12 +36,12 @@
       log in with Google
     </a>
   </div>
-  <form class="email-login">
+  <form class="email-login" method="post" action="signinservlet">
     <div class="u-form-group">
-      <input type="email" placeholder="Email"/>
+      <input type="email" placeholder="Email" name="email"/>
     </div>
     <div class="u-form-group">
-      <input type="password" placeholder="Password"/>
+      <input type="password" placeholder="Password" name="password"/>
     </div>
     <div class="u-form-group">
       <button>Log in</button>

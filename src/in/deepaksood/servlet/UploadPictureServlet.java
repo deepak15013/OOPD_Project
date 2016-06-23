@@ -92,6 +92,8 @@ public class UploadPictureServlet extends HttpServlet {
                     }
                     fi.write( file ) ;
                     out.println("Uploaded Filename: " + fileName + "<br>");
+
+                    response.sendRedirect("homepage.jsp");
                 }
             }
             out.println("</body>");

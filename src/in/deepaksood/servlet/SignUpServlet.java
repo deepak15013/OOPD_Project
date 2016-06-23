@@ -35,7 +35,7 @@ public class SignUpServlet extends HttpServlet {
             System.out.println("password matches");
         }
 
-        response.sendRedirect("uploadpicture.jsp");
+        response.sendRedirect("emailconfirmation.jsp");
 
     }
 

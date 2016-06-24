@@ -23,6 +23,7 @@ public class UploadPictureServlet extends HttpServlet {
 
     private boolean isMultipart;
     private String filePath;
+    private String statusPath;
     private int maxFileSize = 50 * 1024;
     private int maxMemSize = 4 * 1024;
     private File file ;
@@ -30,6 +31,7 @@ public class UploadPictureServlet extends HttpServlet {
     public void init( ){
         // Get the file location where it would be stored.
         filePath = "/home/deepaksood619/IdeaProjects/OOPD_Project/web/profilepics/";
+        statusPath = "";
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

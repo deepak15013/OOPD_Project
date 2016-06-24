@@ -17,9 +17,12 @@
 
 <%
     String errorMessage = (String) request.getAttribute("error_message");
+  if(errorMessage != null && !errorMessage.equals("")) {
+      out.println("<center>");
+      out.println(errorMessage);
+      out.println("</center>");
+  }
 %>
-
-<p><% out.println(errorMessage); %></p>
 
 <div class="login-box">
   <div class="lb-header">

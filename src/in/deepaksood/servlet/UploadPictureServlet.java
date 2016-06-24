@@ -28,11 +28,12 @@ public class UploadPictureServlet extends HttpServlet {
 
     public void init( ){
         // Get the file location where it would be stored.
-        filePath =
-                getServletContext().getInitParameter("file-upload");
+        filePath = getServletContext().getInitParameter("file-upload");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String userEmail = (String) request.getSession().getAttribute("USER_EMAIL");
 
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
@@ -83,15 +84,15 @@ public class UploadPictureServlet extends HttpServlet {
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
                     // Write the file
+
                     if( fileName.lastIndexOf("\\") >= 0 ){
-                        file = new File( filePath +
-                                fileName.substring( fileName.lastIndexOf("\\"))) ;
+                        file = new File(userEmail);
                     }else{
-                        file = new File( filePath +
-                                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+                        file = new File(userEmail) ;
                     }
+
                     fi.write( file ) ;
-                    out.println("Uploaded Filename: " + fileName + "<br>");
+                    out.println("Uploaded Filename: " + userEmail + "<br>");
 
                     response.sendRedirect("homepage.jsp");
                 }

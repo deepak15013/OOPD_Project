@@ -1,12 +1,16 @@
 package in.deepaksood.servlet;
 
+import in.deepaksood.classpackage.SendEmail;
+
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Random;
 
 /**
  * Created by deepaksood619 on 20/6/16.
@@ -14,10 +18,15 @@ import java.util.Objects;
 @WebServlet(name = "SignUpServlet", urlPatterns = "/signupservlet")
 public class SignUpServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        Random random = new Random();
+        int confirmationOtp = random.nextInt(9999) + 1;
+
         System.out.println("inside signupservlet");
 
         String email = request.getParameter("email");
         System.out.println("name: " + email);
+
 
         String password = request.getParameter("password");
         System.out.println("password: " + password);
@@ -33,9 +42,22 @@ public class SignUpServlet extends HttpServlet {
         }
         else {
             System.out.println("password matches");
-        }
 
-        response.sendRedirect("emailconfirmation.jsp");
+            SendEmail sendEmail = new SendEmail();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    sendEmail.sendEmail(email,String.valueOf(confirmationOtp));
+                }
+            }).start();
+
+            HttpSession httpSession = request.getSession();
+            httpSession.setAttribute("CONFIRMATION_OTP",confirmationOtp);
+            httpSession.setAttribute("USER_EMAIL", email);
+
+            response.sendRedirect("emailconfirmation.jsp");
+        }
 
     }
 

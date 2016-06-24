@@ -17,6 +17,8 @@ public class PostStatusServlet extends HttpServlet {
         String postStatus = request.getParameter("poststatus");
         System.out.println("postStatus: "+postStatus);
 
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

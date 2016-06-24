@@ -29,7 +29,7 @@ public class UploadPictureServlet extends HttpServlet {
 
     public void init( ){
         // Get the file location where it would be stored.
-        filePath = getServletContext().getInitParameter("file-upload");
+        filePath = "/home/deepaksood619/IdeaProjects/OOPD_Project/web/profilepics/";
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -88,16 +88,16 @@ public class UploadPictureServlet extends HttpServlet {
                     long sizeInBytes = fi.getSize();
                     // Write the file
 
-                    if( fileName.lastIndexOf("\\") >= 0 ){
-                        file = new File(userEmail);
-                    }else{
-                        file = new File(userEmail) ;
-                    }
+                    System.out.println("create");
+
+                    System.out.println("useremail: "+userEmail);
+                    String[] fileNameToSave = userEmail.split("\\.");
+
+                    file = new File(filePath+fileNameToSave[0]+".jpg");
+                    boolean create = file.createNewFile();
 
                     fi.write( file ) ;
-                    out.println("Uploaded Filename: " + userEmail + "<br>");
-
-                    DatabaseHelper.shared().executeSelect("SELECT * FROM users");
+                    System.out.println("file: "+file.getAbsolutePath());
 
                     response.sendRedirect("homepage.jsp");
                 }

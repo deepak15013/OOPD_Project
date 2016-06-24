@@ -152,4 +152,28 @@ public class DatabaseHelper {
         }
         return false;
     }
+
+
+    public String getName(String sqlQuery) {
+        System.out.println("query: "+sqlQuery);
+
+        Statement statement;
+        try {
+            Connection connection = getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            if(resultSet.next()) {
+                String firstName = resultSet.getString(1);
+                String lastName = resultSet.getString(2);
+                return firstName +" "+lastName;
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -1,5 +1,4 @@
 <%@ page import="in.deepaksood.servlet.UploadPictureServlet" %>
-<%@ page import="javax.xml.crypto.Data" %>
 <%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %><%--
   Created by IntelliJ IDEA.
   User: deepaksood619
@@ -42,14 +41,29 @@
 
     <header class="header">
         <div class="container">
-            <img class="profile-image img-responsive pull-left" src="assets/images/pic.jpg" />
+
+            <%
+                out.println("<img class=\"profile-image img-responsive pull-left\"");
+                String imgName = (String) request.getSession().getAttribute("USER_EMAIL");
+                String filename = imgName.split("\\.")[0] + ".jpg";
+                System.out.println("fileName: "+filename);
+                out.println("src=\"profilepics/"+filename+"\" />");
+            %>
+
+            <%--<img class="profile-image img-responsive pull-left" src="profilepics/ashish15010@iiitd.jpg" />--%>
             <div class="profile-content pull-left">
 
                 <%
+                    String sqlQuery = "SELECT firstname, lastname FROM users WHERE email=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
+                    String name = DatabaseHelper.shared().getName(sqlQuery);
+
+                    if(name != null) {
+                        out.println("<h1 class=\"name\">");
+                        out.println(name);
+                        out.println("</h1>");
+                    }
 
                 %>
-
-                <h1 class="name">Deepak Sood</h1>
             </div>
             <form method="post" action="logoutservlet">
                 <button type="submit" class="btn btn-cta-primary pull-right" ><i class="fa fa-paper-plane"></i> Log out</button>

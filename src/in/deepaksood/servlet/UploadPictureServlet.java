@@ -1,5 +1,6 @@
 package in.deepaksood.servlet;
 
+import in.deepaksood.databasehelper.DatabaseHelper;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -34,6 +35,8 @@ public class UploadPictureServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String userEmail = (String) request.getSession().getAttribute("USER_EMAIL");
+        System.out.println("Email: "+userEmail);
+
 
         isMultipart = ServletFileUpload.isMultipartContent(request);
         response.setContentType("text/html");
@@ -93,6 +96,8 @@ public class UploadPictureServlet extends HttpServlet {
 
                     fi.write( file ) ;
                     out.println("Uploaded Filename: " + userEmail + "<br>");
+
+                    DatabaseHelper.shared().executeSelect("SELECT * FROM users");
 
                     response.sendRedirect("homepage.jsp");
                 }

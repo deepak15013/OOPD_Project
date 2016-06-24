@@ -1,6 +1,7 @@
 package in.deepaksood.servlet;
 
 import in.deepaksood.classpackage.SendEmail;
+import in.deepaksood.databasehelper.DatabaseHelper;
 
 import javax.mail.Session;
 import javax.servlet.ServletException;
@@ -43,6 +44,12 @@ public class SignUpServlet extends HttpServlet {
         else {
             System.out.println("password matches");
 
+            String sqlQuery = "SELECT * FROM users WHERE email=\""+email+"\"";
+            if(DatabaseHelper.shared().checkIfExists(sqlQuery)) {
+                request.setAttribute("error_message","Email already in use, please login");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            }
+
             SendEmail sendEmail = new SendEmail();
 
             new Thread(new Runnable() {
@@ -55,6 +62,7 @@ public class SignUpServlet extends HttpServlet {
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("CONFIRMATION_OTP",confirmationOtp);
             httpSession.setAttribute("USER_EMAIL", email);
+            httpSession.setAttribute("PASSWORD", password);
 
             response.sendRedirect("emailconfirmation.jsp");
         }

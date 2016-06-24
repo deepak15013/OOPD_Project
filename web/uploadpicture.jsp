@@ -25,29 +25,10 @@
 
 <form action="uploadpictureservlet" method="post" enctype="multipart/form-data">
 
-    <h1>New User Registration</h1>
+    <h1>Upload picture</h1>
 
     <fieldset>
-        <legend><span class="number">1</span>Your basic info</legend>
-        <label for="first_name">First name:</label>
-        <input type="text" id="first_name" name="first_name">
-
-        <label for="last_name">Last name:</label>
-        <input type="text" id="last_name" name="last_name">
-
-        <label for="dob">Date of birth</label>
-        <input type="date" id="dob" name="dob">
-
-        <label>Gender:</label>
-        <input type="radio" id="male" value="male" name="male"><label for="male" class="light">Male</label><br>
-        <input type="radio" id="female" value="female" name="female"><label for="female" class="light">Female</label><br>
-        <input type="radio" id="other" value="other" name="other"><label for="other" class="light">Other</label>
-    </fieldset>
-
-    <br>
-
-    <fieldset>
-        <legend><span class="number">2</span>Upload picture</legend>
+        <legend><span class="number">1</span>Upload picture</legend>
         Select your image: <input type="file" name="picturefile" id="picturefile" size="50" />
 
     </fieldset>
@@ -58,9 +39,3 @@
 </body>
 </body>
 </html>
-
-<%--<body>
-
-
-
-</body>--%>

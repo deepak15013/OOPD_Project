@@ -1,5 +1,7 @@
 package in.deepaksood.servlet;
 
+import in.deepaksood.databasehelper.DatabaseHelper;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +15,17 @@ import java.io.IOException;
 @WebServlet(name = "SigninServlet", urlPatterns = "/signinservlet")
 public class SigninServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("email");
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        System.out.println("name: "+name+" password: "+password);
+        System.out.println("name: "+email+" password: "+password);
 
-        response.sendRedirect("homepage.jsp");
+        if(DatabaseHelper.shared().checkPassword(email, password)) {
+            response.sendRedirect("homepage.jsp");
+        } else {
+            request.setAttribute("error_message","Wrong password, please try again");
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

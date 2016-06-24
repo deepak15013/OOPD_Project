@@ -1,4 +1,6 @@
-<%--
+<%@ page import="in.deepaksood.servlet.UploadPictureServlet" %>
+<%@ page import="javax.xml.crypto.Data" %>
+<%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %><%--
   Created by IntelliJ IDEA.
   User: deepaksood619
   Date: 24/6/16
@@ -42,6 +44,11 @@
         <div class="container">
             <img class="profile-image img-responsive pull-left" src="assets/images/pic.jpg" />
             <div class="profile-content pull-left">
+
+                <%
+
+                %>
+
                 <h1 class="name">Deepak Sood</h1>
             </div>
             <form method="post" action="logoutservlet">
@@ -69,11 +76,7 @@
 
     </div>
 
-
-
     <div id="wall" align="center">
-
-
 
     </div>
 

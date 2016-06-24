@@ -83,8 +83,8 @@
 
     <div id="section" align="center">
 
-        <textarea id="textarea" title="status" placeholder="Post today's status" form="poststatusform"></textarea>
-        <form action="poststatusservlet" method="post" id="poststatusform">
+        <form action="poststatusservlet" method="post">
+            <textarea id="textarea" title="status" placeholder="Post today's status" name="poststatus"></textarea>
             <input type="submit" value="Post Status">
         </form>
 

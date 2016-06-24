@@ -3,6 +3,7 @@
     color: white;
     text-align: center;
     padding: 5px;
+    height: 200px;
 }
 
 #notification {
@@ -31,17 +32,8 @@
 
 #textarea {
     width: 500px;
-    height: 40px;
+    height: 80px;
     margin-top: 50px;
-}
-
-#textarea:focus {
-    height: 100px;
-    -webkit-transition: all 1s;
-    -moz-transition:    all 1s;
-    -ms-transition:     all 1s;
-    -o-transition:      all 1s;
-    transition:         all 1s;
 }
 
 #wall {

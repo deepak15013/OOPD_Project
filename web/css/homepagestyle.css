@@ -1,0 +1,55 @@
+#header {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+#notification {
+    background-color: #eeeeee;
+    min-height: 500px;
+    height: auto;
+    width: 300px;
+    float: left;
+    padding: 5px;
+}
+
+#friendlist {
+    background-color: #eeeeee;
+    min-height: 500px;
+    height: auto;
+    width: 300px;
+    float: right;
+    padding: 5px;
+}
+
+#section {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#textarea {
+    width: 500px;
+    height: 40px;
+    margin-top: 50px;
+}
+
+#textarea:focus {
+    height: 100px;
+    -webkit-transition: all 1s;
+    -moz-transition:    all 1s;
+    -ms-transition:     all 1s;
+    -o-transition:      all 1s;
+    transition:         all 1s;
+}
+
+#wall {
+    padding: 10px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #a6e1ec;
+    min-height: 350px;
+    height: auto;
+}

@@ -61,9 +61,12 @@
             String query = "SELECT * FROM friendlist WHERE email=\""+userEmail+"\" AND friendemail=\""+email+"\"";
             Boolean exists = DatabaseHelper.shared().checkIfExists(query);
             if(exists) {
-                out.println("<h2>");
-                out.println("Already friends");
-                out.println("<h2>");
+
+                out.println("<form method=\"post\" action=\"unfriendservlet\">");
+                out.println("<input type=\"submit\" value=\"Unfriend\">");
+                out.println("<input type=\"hidden\" name=\"TO_EMAIL\" value=\""+email+"\">");
+                out.println("</form>");
+
             } else {
                 query = "SELECT * FROM friendrequest WHERE fromemail=\""+userEmail+"\" AND toemail=\""+email+"\"";
                 exists = DatabaseHelper.shared().checkIfExists(query);

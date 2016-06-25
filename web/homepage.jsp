@@ -103,7 +103,6 @@
 
     <div id="notification">
 
-
         <%
             String friendRequestQuery = "SELECT fromemail FROM friendrequest WHERE toemail=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
             ArrayList<String> requesterEmail = DatabaseHelper.shared().executeSelect(friendRequestQuery);
@@ -123,9 +122,11 @@
                     out.println("</header>");
                     out.println("<img src=\"profilepics/"+image+"\" alt=\"Avatar\" style=\"width:80%\">");
                     out.println("<div class=\"w3-container\">");
-                    out.println("");
-                    out.println("<button class=\"w3-btn w3-green\">Accept</button>");
-                    out.println("<button class=\"w3-btn w3-red\">Decline</button>");
+                    out.println("<form method=\"post\" action=\"friendrequesthandler\">");
+                    out.println("<button type=\"submit\" name=\"accept\" class=\"w3-btn w3-green\">Accept</button>");
+                    out.println("<button type=\"submit\" name=\"decline\" class=\"w3-btn w3-red\">Decline</button>");
+                    out.println("<input type=\"hidden\" name=\"ACCEPT_EMAIL\" value=\""+string+"\">");
+                    out.println("</form>");
                     out.println("</div>");
                     out.println("</div>");
                     out.println("<br>");

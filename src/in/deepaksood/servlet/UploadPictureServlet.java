@@ -101,9 +101,6 @@ public class UploadPictureServlet extends HttpServlet {
                     fi.write( file ) ;
                     System.out.println("file: "+file.getAbsolutePath());
 
-
-
-
                     response.sendRedirect("homepage.jsp");
                 }
             }

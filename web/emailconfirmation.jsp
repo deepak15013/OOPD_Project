@@ -24,7 +24,6 @@
         out.println("Please wait for otp. It would take some time to deliver.");
         out.println("</center>");
     }
-
 %>
 
 <div style="text-align: center;">

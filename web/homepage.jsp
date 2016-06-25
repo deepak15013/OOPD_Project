@@ -1,5 +1,6 @@
 <%@ page import="in.deepaksood.servlet.UploadPictureServlet" %>
-<%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %><%--
+<%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: deepaksood619
   Date: 24/6/16
@@ -36,6 +37,8 @@
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
+    <link rel="stylesheet" href="css/w3.css">
+
     <script type="text/javascript" src="JS/jquery-1.4.2.min.js"></script>
     <script src="JS/jquery.autocomplete.js"></script>
 
@@ -48,7 +51,17 @@
 </head>
 <body>
 
-    <header class="header">
+<%
+    String message = (String) request.getAttribute("ERROR_MESSAGE");
+    if(message != null && !message.equals("")) {
+        out.println("<center>");
+        out.println(message);
+        out.println("</center>");
+    }
+%>
+
+
+<header class="header">
         <div class="container">
 
             <%
@@ -60,7 +73,6 @@
 
             %>
 
-            <%--<img class="profile-image img-responsive pull-left" src="profilepics/ashish15010@iiitd.jpg" />--%>
             <div class="profile-content pull-left">
 
                 <%
@@ -90,13 +102,85 @@
     </header>
 
     <div id="notification">
-        notification <br>
-        area
+
+
+        <%
+            String friendRequestQuery = "SELECT fromemail FROM friendrequest WHERE toemail=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
+            ArrayList<String> requesterEmail = DatabaseHelper.shared().executeSelect(friendRequestQuery);
+            if(requesterEmail != null) {
+                for(String string : requesterEmail) {
+
+                    String[] temp = string.split("\\.");
+                    String image = temp[0]+".jpg";
+
+                    out.println("<div class=\"w3-card-4\">");
+                    out.println("<header class=\"w3-container w3-center\">");
+                    out.println("<h4>");
+                    out.println("Friend Request");
+                    out.println("<br>");
+                    out.println(string);
+                    out.println("</h4");
+                    out.println("</header>");
+                    out.println("<img src=\"profilepics/"+image+"\" alt=\"Avatar\" style=\"width:80%\">");
+                    out.println("<div class=\"w3-container\">");
+                    out.println("");
+                    out.println("<button class=\"w3-btn w3-green\">Accept</button>");
+                    out.println("<button class=\"w3-btn w3-red\">Decline</button>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<br>");
+                }
+
+                if(requesterEmail.size() == 0) {
+                    out.println("No Friend Request");
+                }
+
+            }
+            else {
+                out.println("No Friend Request");
+            }
+        %>
     </div>
 
     <div id="friendlist">
-        friend <br>
-        list
+
+        <h4>Friend List</h4>
+
+        <%
+            String friendListQuery = "SELECT friendemail FROM friendlist WHERE email=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
+            ArrayList<String> friendsEmail = DatabaseHelper.shared().executeSelect(friendListQuery);
+            if(friendsEmail != null) {
+                for(String string : friendsEmail) {
+
+                    String[] temp = string.split("\\.");
+                    String image = temp[0]+".jpg";
+
+                    out.println("<div class=\"w3-card-4\">");
+                    out.println("<header class=\"w3-container w3-center\">");
+                    out.println("<h4>");
+                    out.println("Friend Request");
+                    out.println("<br>");
+                    out.println(string);
+                    out.println("</h4");
+                    out.println("</header>");
+                    out.println("<img src=\"profilepics/"+image+"\" alt=\"Avatar\" style=\"width:80%\">");
+                    out.println("<div class=\"w3-container\">");
+                    out.println("<button class=\"w3-btn w3-green\">View Profile</button>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<br>");
+                }
+
+                if(friendsEmail.size() == 0) {
+                    out.println("Its lonely in here");
+                }
+
+            }
+            else {
+                out.println("Its lonely in here");
+            }
+        %>
+
     </div>
 
     <div id="section" align="center">

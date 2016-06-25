@@ -1,6 +1,7 @@
 package in.deepaksood.databasehelper;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by deepaksood619 on 20/6/16.
@@ -97,17 +98,25 @@ public class DatabaseHelper {
         }
     }
 
-    public boolean executeSelect(String sqlQuery) {
+    public ArrayList<String> executeSelect(String sqlQuery) {
+        System.out.println("selectQuery: "+sqlQuery);
         Statement statement;
+        ArrayList<String> requesterEmail = new ArrayList<>();
         try {
             Connection connection = getConnection();
             statement = connection.createStatement();
-            statement.executeQuery(sqlQuery);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            while(resultSet.next()) {
+                requesterEmail.add(resultSet.getString(1));
+            }
+
+
             connection.close();
-            return true;
+            return requesterEmail;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
@@ -175,5 +184,33 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public String[] getProfileDetails(String profileEmail) {
+        String sqlQuery = "SELECT * FROM users WHERE email=\""+profileEmail+"\";";
+
+        Statement statement;
+        String[] profileDetails = new String[4];
+
+        try {
+            Connection connection = getConnection();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            if(resultSet.next()) {
+                profileDetails[0] = resultSet.getString(3) +" "+resultSet.getString(4);
+                profileDetails[1] = resultSet.getString(1);
+                profileDetails[2] = resultSet.getString(5);
+                profileDetails[3] = resultSet.getString(6);
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return profileDetails;
+
     }
 }

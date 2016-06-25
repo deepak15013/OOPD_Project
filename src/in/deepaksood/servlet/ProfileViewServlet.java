@@ -1,5 +1,7 @@
 package in.deepaksood.servlet;
 
+import in.deepaksood.databasehelper.DatabaseHelper;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,17 @@ public class ProfileViewServlet extends HttpServlet {
         String profileEmail = request.getParameter("search");
         System.out.println("profileEmail: "+profileEmail);
 
+        String[] profileDetails = DatabaseHelper.shared().getProfileDetails(profileEmail);
+        System.out.println("profileDetails:");
+
+        for(int i=0;i<profileDetails.length;i++) {
+            System.out.println("i: "+profileDetails[i]);
+        }
+
+        request.setAttribute("NAME",profileDetails[0]);
+        request.setAttribute("EMAIL",profileDetails[1]);
+        request.setAttribute("DOB",profileDetails[2]);
+        request.setAttribute("GENDER",profileDetails[3]);
         request.getRequestDispatcher("/profile.jsp").forward(request, response);
 
     }

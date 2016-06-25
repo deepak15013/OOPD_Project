@@ -24,6 +24,7 @@ public class PostStatusServlet extends HttpServlet {
 
         NotificationGrabber.shared().addPost(userEmail,userEmail+":"+postStatus);
 
+        response.sendRedirect("homepage.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

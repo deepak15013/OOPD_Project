@@ -1,6 +1,12 @@
 <%@ page import="in.deepaksood.servlet.UploadPictureServlet" %>
 <%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.stream.Stream" %>
+<%@ page import="java.nio.file.Paths" %>
+<%@ page import="java.nio.file.Files" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.FileReader" %><%--
   Created by IntelliJ IDEA.
   User: deepaksood619
   Date: 24/6/16
@@ -192,6 +198,27 @@
     </div>
 
     <div id="wall" align="center">
+
+        <%
+            String location = "/home/deepaksood619/IdeaProjects/OOPD_Project/web/statuspackage/";
+            String temp = (String) request.getSession().getAttribute("USER_EMAIL");
+            String txtFile = temp.split("\\.")[0] + ".txt";
+
+            try (BufferedReader br = new BufferedReader(new FileReader(location+txtFile))) {
+
+                String line;
+                while ((line = br.readLine()) != null) {
+                    out.println("<h3>");
+                    out.println(line);
+                    out.println("</h3>");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        %>
 
     </div>
 

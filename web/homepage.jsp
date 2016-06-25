@@ -36,6 +36,15 @@
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
 
+    <script type="text/javascript" src="JS/jquery-1.4.2.min.js"></script>
+    <script src="JS/jquery.autocomplete.js"></script>
+
+    <script>
+        jQuery(function(){
+            $("#search").autocomplete("list.jsp");
+        });
+    </script>
+
 </head>
 <body>
 
@@ -48,6 +57,7 @@
                 String filename = imgName.split("\\.")[0] + ".jpg";
                 System.out.println("fileName: "+filename);
                 out.println("src=\"profilepics/"+filename+"\" />");
+
             %>
 
             <%--<img class="profile-image img-responsive pull-left" src="profilepics/ashish15010@iiitd.jpg" />--%>
@@ -65,6 +75,14 @@
 
                 %>
             </div>
+
+            <div id="searchbox">
+                <form method="get" action="profileviewservlet">
+                    <input type="text" placeholder="search for a friend" id="search" name="search">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+
             <form method="post" action="logoutservlet">
                 <button type="submit" class="btn btn-cta-primary pull-right" ><i class="fa fa-paper-plane"></i> Log out</button>
             </form>

@@ -49,3 +49,11 @@ Screenshots:
 
 12. Friend request notification
 ![Project Structure](Screenshots/13.png "Project Structure")
+
+Design Patern Used -
+1. Singleton Pattern
+2. Observer Pattern
+
+Created by - 
+Deepak Kumar Sood
+Date - 25-06-2016

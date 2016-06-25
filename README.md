@@ -10,3 +10,5 @@ A mini social networking site.
 7. Log out
 8. Email Verification
 9. Profile pic upload.
+
+

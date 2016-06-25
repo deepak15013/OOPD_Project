@@ -1,5 +1,7 @@
 package in.deepaksood.servlet;
 
+import in.deepaksood.classpackage.NotificationGrabber;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,7 @@ public class PostStatusServlet extends HttpServlet {
 
         System.out.println("postStatus: "+postStatus+" by "+userEmail);
 
-
+        NotificationGrabber.shared().addPost(userEmail,userEmail+":"+postStatus);
 
     }
 

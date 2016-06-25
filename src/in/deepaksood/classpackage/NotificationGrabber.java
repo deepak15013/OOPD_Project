@@ -1,5 +1,8 @@
 package in.deepaksood.classpackage;
 
+import in.deepaksood.databasehelper.DatabaseHelper;
+import in.deepaksood.databasehelper.FileHelper;
+
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,7 @@ public class NotificationGrabber implements Subject {
     }
 
     private ArrayList<Observer> observers;
+    private String newPost;
 
     public NotificationGrabber() {
         this.observers = new ArrayList<>();
@@ -33,11 +37,20 @@ public class NotificationGrabber implements Subject {
     }
 
     @Override
-    public void notifyObserver() {
+    public void notifyObserver(String userEmail) {
 
-        for(Observer observer: observers) {
-            observer.update();
+        String query = "SELECT friendemail FROM friendlist WHERE email=\""+userEmail+"\"";
+        ArrayList<String> observerList = DatabaseHelper.shared().executeSelect(query);
+
+        for(String friends: observerList) {
+            FileHelper.shared().addStatus(friends, newPost);
         }
 
+    }
+
+    public void addPost(String userEmail, String newPost) {
+        this.newPost = newPost;
+        FileHelper.shared().addStatus(userEmail, newPost);
+        notifyObserver(userEmail);
     }
 }

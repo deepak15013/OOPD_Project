@@ -31,7 +31,7 @@ public class UploadPictureServlet extends HttpServlet {
     public void init( ){
         // Get the file location where it would be stored.
         filePath = "/home/deepaksood619/IdeaProjects/OOPD_Project/web/profilepics/";
-        statusPath = "";
+        statusPath = "/home/deepaksood619/IdeaProjects/OOPD_Project/web/statuspackage/";
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -100,6 +100,9 @@ public class UploadPictureServlet extends HttpServlet {
 
                     fi.write( file ) ;
                     System.out.println("file: "+file.getAbsolutePath());
+
+                    File statusFile = new File(statusPath+fileNameToSave[0]+".txt");
+                    boolean createFile = statusFile.createNewFile();
 
                     response.sendRedirect("homepage.jsp");
                 }

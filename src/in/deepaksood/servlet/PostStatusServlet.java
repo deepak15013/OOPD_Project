@@ -15,7 +15,10 @@ public class PostStatusServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("inside poststatus servlet");
         String postStatus = request.getParameter("poststatus");
-        System.out.println("postStatus: "+postStatus);
+
+        String userEmail = (String) request.getSession().getAttribute("USER_EMAIL");
+
+        System.out.println("postStatus: "+postStatus+" by "+userEmail);
 
 
 

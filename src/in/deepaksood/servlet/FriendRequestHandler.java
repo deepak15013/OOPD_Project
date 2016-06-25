@@ -29,8 +29,10 @@ public class FriendRequestHandler extends HttpServlet {
 
         // decline used
         System.out.println("decline: "+friendEmail);
-        String query = "DELETE FROM friendrequest WHERE fromemail=\""+friendEmail+"\", AND toemail=\""+userEmail+"\"";
+        String query = "DELETE FROM friendrequest WHERE fromemail=\""+friendEmail+"\" AND toemail=\""+userEmail+"\"";
         DatabaseHelper.shared().executeUpdate(query);
+
+        response.sendRedirect("homepage.jsp");
 
 
     }

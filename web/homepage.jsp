@@ -159,8 +159,6 @@
                     out.println("<div class=\"w3-card-4\">");
                     out.println("<header class=\"w3-container w3-center\">");
                     out.println("<h4>");
-                    out.println("Friend Request");
-                    out.println("<br>");
                     out.println(string);
                     out.println("</h4");
                     out.println("</header>");

@@ -55,7 +55,7 @@ public class SignUpServlet extends HttpServlet {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //sendEmail.sendEmail(email,String.valueOf(confirmationOtp));
+                    sendEmail.sendEmail(email,String.valueOf(confirmationOtp));
                 }
             }).start();
 

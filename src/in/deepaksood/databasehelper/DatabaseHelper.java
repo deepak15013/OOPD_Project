@@ -121,6 +121,7 @@ public class DatabaseHelper {
     }
 
     public boolean checkIfExists(String sqlQuery) {
+        System.out.println("CheckifExists Query: "+sqlQuery);
         Statement statement;
         try {
             Connection connection = getConnection();

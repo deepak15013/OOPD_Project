@@ -1,4 +1,4 @@
-<%--
+<%@ page import="in.deepaksood.databasehelper.DatabaseHelper" %><%--
   Created by IntelliJ IDEA.
   User: deepaksood619
   Date: 25/6/16
@@ -38,7 +38,6 @@
 
             String[] temp = email.split("\\.");
             String fileName = temp[0]+".jpg";
-
         %>
 
         <!-- here’s the avatar -->
@@ -52,16 +51,38 @@
         <h4><% out.println(dob); %></h4>
         <h4><% out.println(gender); %></h4>
 
+    <%
+        String userEmail = (String) request.getSession().getAttribute("USER_EMAIL");
+        if(userEmail.equalsIgnoreCase(email)) {
+            out.println("<h2>");
+            out.println("Hey! Its your Profile!");
+            out.println("<h2>");
+        } else {
+            String query = "SELECT * FROM friendlist WHERE email=\""+userEmail+"\" AND friendemail=\""+email+"\"";
+            Boolean exists = DatabaseHelper.shared().checkIfExists(query);
+            if(exists) {
+                out.println("<h2>");
+                out.println("Already friends");
+                out.println("<h2>");
+            } else {
+                query = "SELECT * FROM friendrequest WHERE fromemail=\""+userEmail+"\" AND toemail=\""+email+"\"";
+                exists = DatabaseHelper.shared().checkIfExists(query);
+                if(exists) {
+                    out.println("<h2>");
+                    out.println("Friend request sent");
+                    out.println("<h2>");
+                }
+                else {
+                    out.println("<form method=\"post\" action=\"sendfriendrequest\">");
+                    out.println("<input type=\"submit\" value=\"Send Friend Request\">");
+                    out.println("<input type=\"hidden\" name=\"TO_EMAIL\" value=\""+email+"\">");
+                    out.println("</form>");
+                }
+            }
+        }
+    %>
+
     </header>
-
-    <div align="center">
-
-        <form method="post" action="sendfriendrequest">
-            <input type="submit" value="Send Friend Request">
-            <input type="hidden" name="TO_EMAIL" value="<%=email%>">
-        </form>
-
-    </div>
 
 </aside>
 <!-- that’s all folks! -->

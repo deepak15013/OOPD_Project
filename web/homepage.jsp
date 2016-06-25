@@ -82,13 +82,21 @@
             <div class="profile-content pull-left">
 
                 <%
-                    String sqlQuery = "SELECT firstname, lastname FROM users WHERE email=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
-                    String name = DatabaseHelper.shared().getName(sqlQuery);
+                    String[] profileDetails = DatabaseHelper.shared().getProfileDetails((String) request.getSession().getAttribute("USER_EMAIL"));
 
-                    if(name != null) {
+                    if(profileDetails != null) {
                         out.println("<h1 class=\"name\">");
-                        out.println(name);
+                        out.println(profileDetails[0].toUpperCase());
                         out.println("</h1>");
+                        out.println("<h4 style=\"color:black;\">");
+                        out.println(profileDetails[1]);
+                        out.println("</h4>");
+                        out.println("<h4 style=\"color:black;\">");
+                        out.println("DOB: "+profileDetails[2]);
+                        out.println("</h4>");
+                        out.println("<h4 style=\"color:black;\">");
+                        out.println(profileDetails[3].toLowerCase());
+                        out.println("</h4>");
                     }
 
                 %>
@@ -109,6 +117,8 @@
 
     <div id="notification">
 
+        <h4>Notifications</h4>
+
         <%
             String friendRequestQuery = "SELECT fromemail FROM friendrequest WHERE toemail=\""+request.getSession().getAttribute("USER_EMAIL")+"\"";
             ArrayList<String> requesterEmail = DatabaseHelper.shared().executeSelect(friendRequestQuery);
@@ -120,7 +130,7 @@
 
                     out.println("<div class=\"w3-card-4\">");
                     out.println("<header class=\"w3-container w3-center\">");
-                    out.println("<h4>");
+                    out.println("<h4 style=\"color:black;\">");
                     out.println("Friend Request");
                     out.println("<br>");
                     out.println(string);
@@ -164,13 +174,16 @@
 
                     out.println("<div class=\"w3-card-4\">");
                     out.println("<header class=\"w3-container w3-center\">");
-                    out.println("<h4>");
+                    out.println("<h4 style=\"color:black;\">");
                     out.println(string);
                     out.println("</h4");
                     out.println("</header>");
                     out.println("<img src=\"profilepics/"+image+"\" alt=\"Avatar\" style=\"width:80%\">");
                     out.println("<div class=\"w3-container\">");
+                    out.println("<form method=\"get\" action=\"profileviewservlet\">");
                     out.println("<button class=\"w3-btn w3-green\">View Profile</button>");
+                    out.println("<input type=\"hidden\" value=\""+string+"\" name=\"search\">");
+                    out.println("</form>");
                     out.println("</div>");
                     out.println("</div>");
                     out.println("<br>");
@@ -191,7 +204,7 @@
     <div id="section" align="center">
 
         <form action="poststatusservlet" method="post">
-            <textarea id="textarea" title="status" placeholder="Post today's status" name="poststatus"></textarea>
+            <textarea id="textarea" title="status" placeholder="What's on your mind" name="poststatus"></textarea>
             <input type="submit" value="Post Status">
         </form>
 
@@ -208,9 +221,22 @@
 
                 String line;
                 while ((line = br.readLine()) != null) {
-                    out.println("<h3>");
-                    out.println(line);
-                    out.println("</h3>");
+
+                    String[] statusArray = line.split(":");
+
+                    out.println("<div class=\"w3-card-4\">");
+                    out.println("<header class=\"w3-container w3-blue\">");
+                    out.println("<h4 style=\"color:white;\">");
+                    out.println(statusArray[0]);
+                    out.println("</h4");
+                    out.println("</header>");
+                    out.println("<div class=\"w3-container\">");
+                    out.println("<h2 style=\"color:black;\">");
+                    out.println(statusArray[1]);
+                    out.println("</h2>");
+                    out.println("</div>");
+                    out.println("</div>");
+                    out.println("<br>");
                 }
 
             } catch (IOException e) {
